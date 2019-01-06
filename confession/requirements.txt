@@ -1,0 +1,6 @@
+Django==1.11.15
+django-redis==4.10.0
+django-redis-cache==1.8.1
+PyMySQL==0.9.3
+pytz==2018.7
+redis==2.10.6
