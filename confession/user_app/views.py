@@ -8,7 +8,7 @@ from user_app.verify_form import UserForm
 
 
 def hello(request):
-    return HttpResponse('hello world')
+    return HttpResponse('hello world jenkins')
 
 
 # 用户模块
