@@ -31,6 +31,7 @@
 | img2     | varchar（256） | 配图2    |
 | img3     | varchar（256） | 配图3    |
 | userName | varchar(30)    | 昵称     |
+| state    | varchar（50）  | 审核状态 |
 
 ## 点赞表（like）
 

@@ -1,7 +1,7 @@
 import json
 import random
-import string
 
+import os
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
@@ -53,7 +53,33 @@ def send_msg(phone, vcode):
     return res
 
 
+def save_upload_file(filename, avatar, save_path):
+    '''保存上传图片'''
+    filepath = os.path.join(settings.BASE_DIR, save_path,filename)
+    with open(filepath, 'wb') as fp:
+        for chunk in avatar.chunks():
+            fp.write(chunk)
+    return filepath, filename
 
+
+def save_issue_image(userID, image1, image2, image3):
+    filenames = []
+    if image1:
+        _, filename1 = save_upload_file('issue-%s-1' % userID, image1, save_path='static/confessImage')
+        filenames.append(filename1)
+    else:
+        filenames.append(None)
+    if image2:
+        _, filename2 = save_upload_file('issue-%s-2' % userID, image2, save_path='static/confessImage')
+        filenames.append(filename2)
+    else:
+        filenames.append(None)
+    if image3:
+        _, filename3 = save_upload_file('issue-%s-3' % userID, image3, save_path='static/confessImage')
+        filenames.append(filename3)
+    else:
+        filenames.append(None)
+    return filenames
 
 
 if __name__ == '__main__':

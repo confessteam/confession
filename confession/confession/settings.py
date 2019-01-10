@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.authMiddleware.AuthMiddleware'
 ]
 
 ROOT_URLCONF = 'confession.urls'
@@ -136,3 +137,10 @@ CACHES = {
         }
     }
 }
+
+
+# 配置静态文件
+STATICFILES_ROOT = [
+    os.path.join(BASE_DIR, 'static')
+]
+

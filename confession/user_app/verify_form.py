@@ -1,6 +1,6 @@
 from django import forms
 
-from user_app.models import User
+from user_app.models import User, Confess
 
 
 class UserForm(forms.ModelForm):
@@ -8,9 +8,11 @@ class UserForm(forms.ModelForm):
         model = User
         fields = [
             'u_name',
-            'icon',
             'sex',
             'age',
+            'province',
+            'city',
+            'school'
         ]
 
     def clean_age(self):
