@@ -82,5 +82,13 @@ def save_issue_image(userID, image1, image2, image3):
     return filenames
 
 
+def many_to_dict(objects):
+    res_lists = []
+    for obj in objects:
+        res_lists.append(obj.to_dict('release_time'))
+    return res_lists
+
+
+
 if __name__ == '__main__':
     print(type(get_code(4)))

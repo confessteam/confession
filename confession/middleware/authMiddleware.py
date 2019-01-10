@@ -9,7 +9,7 @@ from user_app.models import User
 class AuthMiddleware(MiddlewareMixin):
     def process_request(self, request):
         path = request.path
-        need_login_path = ['/user/update_self_data', '/user/issue']
+        need_login_path = ['/user/update_self_data', '/user/issue', '/user/get_self_issue','/user/delete_self_issue']
         if path in need_login_path:
             token = request.GET.get('token')
             uid = cache.get(token)

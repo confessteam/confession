@@ -1,10 +1,12 @@
 import uuid
 
 from django.core.cache import cache
+from django.db.models import Q
 from django.http import HttpResponse
 
-from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA
-from user_app.logic import get_code, send_msg, render_json, check_vcode, save_upload_file, save_issue_image
+from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED
+from user_app.logic import get_code, send_msg, render_json, check_vcode, save_upload_file, save_issue_image, \
+    many_to_dict
 from user_app.models import User, Confess
 from user_app.verify_form import UserForm
 
@@ -67,6 +69,7 @@ def update_self_data(request):
 
 # ===================表白===============================
 def issue(request):
+    '''发表表白贴子'''
     userID = request.user.id
     userName = request.user.u_name
     print(userName, userID)
@@ -81,17 +84,42 @@ def issue(request):
     confess.context = context
     confess.image1, confess.image2, confess.image3 = save_issue_image(userID, image1, image2, image3)
     confess.save()
+    return render_json(confess.to_dict('release_time'), OK)
 
-    data = {
-        'userid':userID,
-        'username':userName,
-        'context':context,
-        'image1':confess.image1,
-        'image2':confess.image2,
-        'image3':confess.image3,
-        'state':'待审核'
-    }
+
+def get_self_issue(request):
+    '''获取自己所有发布的表白帖子'''
+    uid = request.user.id
+    confessions = Confess.objects.filter(Q(userID=uid) & Q(is_delete=False))
+    data = many_to_dict(confessions)
     return render_json(data, OK)
+
+
+def delete_self_issue(request):
+    '''删除表白帖子'''
+    user = request.user
+    confessid = request.GET.get("confessid")
+    confess = Confess.objects.filter(pk=confessid)
+    if confess.exists():
+        confess = confess.first()
+        if user.id == confess.userID:
+            confess.is_delete = True
+            confess.save()
+            return render_json(confess.to_dict('release_time'), OK)
+        else:
+            return render_json({'msg':"没有权限删除该帖子"}, ISSUE_NOT_ALLOWED)
+    else:
+        return render_json({'msg':'该表白帖子不存在'}, ISSUE_NOT_EXIST)
+
+
+def index(request):
+    '''首页信息展示'''
+    # 帖子分页
+    pass
+
+
+
+
 
 
 

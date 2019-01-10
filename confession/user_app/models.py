@@ -46,12 +46,14 @@ class Confess(BaseMode):
         db_table = 'confess'
 
     userID = models.IntegerField()
-    context = models.TextField()
+    context = models.TextField(default='', null=True)
     image1 = models.CharField(max_length=256, null=True)
     image2 = models.CharField(max_length=256, null=True)
     image3 = models.CharField(max_length=256, null=True)
     userName = models.CharField(max_length=30)
     state = models.CharField(max_length=50, choices=STATE, default='待审核')
+    release_time = models.DateTimeField(auto_now=True)
+    is_delete = models.BooleanField(default=False)
 
 
 
