@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED
 from user_app.logic import get_code, send_msg, render_json, check_vcode, save_upload_file, save_issue_image, \
     many_to_dict
-from user_app.models import User, Confess
+from user_app.models import User, Confess, Comment
 from user_app.verify_form import UserForm
 
 
@@ -116,6 +116,28 @@ def index(request):
     '''首页信息展示'''
     # 帖子分页
     pass
+
+
+def do_comment(request):
+    '''评论'''
+    user_id = request.user.id
+    confess_id = request.GET.get('confess_id')
+    context = request.POST.get('comment')
+    comment = Comment()
+    comment.userID = user_id
+    comment.confessID = confess_id
+    comment.context = context
+    comment.save()
+    return render_json(comment.to_dict('comment_time'), OK)
+
+
+def get_comments(request):
+    '''获取某条帖子的所有评论'''
+    confess_id = request.GET.get('confess_id')
+    comments = Comment.objects.filter(confessID=confess_id)
+    data = many_to_dict()
+
+
 
 
 

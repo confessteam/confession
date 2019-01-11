@@ -16,6 +16,7 @@ class BaseMode(models.Model):
 
 
 class User(BaseMode):
+    '''用户表'''
     class Meta:
         db_table = 'user'
 
@@ -36,6 +37,7 @@ class User(BaseMode):
 
 
 class Confess(BaseMode):
+    '''贴子表'''
     STATE = (
         ('待审核', '待审核'),
         ('通过', '通过'),
@@ -55,6 +57,16 @@ class Confess(BaseMode):
     release_time = models.DateTimeField(auto_now=True)
     is_delete = models.BooleanField(default=False)
 
+
+class Comment(BaseMode):
+    class Meta:
+        db_table = 'comment'
+
+    userID = models.IntegerField()
+    confessID = models.IntegerField()
+    context = models.TextField(null=True)
+    comment_time = models.DateTimeField(auto_now_add=True)
+    is_delete = models.BooleanField(default=False)
 
 
 

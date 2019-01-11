@@ -13,4 +13,8 @@ urlpatterns = [
     url(r'^issue', views.issue, name='issue'),
     url(r'^get_self_issue', views.get_self_issue, name='get_self_issue'),
     url(r'^delete_self_issue', views.delete_self_issue, name='delete_self_issue'),
+
+    # 评论模块
+    url(r'^do_comment', views.do_comment, name='do_comment'),
+
 ]
