@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 
@@ -11,8 +12,16 @@ class BaseMode(models.Model):
         for field in self._meta.fields:  # 遍历所有字段
             name = field.attname  # 取出字段名称
             if name not in ignore_fileds:  # 检查是否是需要忽略的字段
-                attr_dict[name] = getattr(self, name)  # 获取字段对应的值
+                tem_attr = getattr(self, name)
+                if isinstance(tem_attr, datetime):
+                    attr_dict[name] = tem_attr.strftime("%Y-%m-%d %X")  # 获取字段对应的值
+                else:
+                    attr_dict[name] = getattr(self, name)  # 获取字段对应的值
         return attr_dict
+
+    def datetime_to_string(self, datetime):
+        pass
+
 
 
 class User(BaseMode):

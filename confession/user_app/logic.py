@@ -85,7 +85,7 @@ def save_issue_image(userID, image1, image2, image3):
 def many_to_dict(objects):
     res_lists = []
     for obj in objects:
-        res_lists.append(obj.to_dict('release_time'))
+        res_lists.append(obj.to_dict())
     return res_lists
 
 
