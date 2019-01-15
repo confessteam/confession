@@ -115,7 +115,9 @@ def delete_self_issue(request):
 def index(request):
     '''首页信息展示'''
     # 帖子分页
-    pass
+    confesses = Confess.objects.all()[1:10]
+    data = many_to_dict(confesses)
+    return render_json(data, OK)
 
 
 def do_comment(request):
@@ -135,7 +137,8 @@ def get_comments(request):
     '''获取某条帖子的所有评论'''
     confess_id = request.GET.get('confess_id')
     comments = Comment.objects.filter(confessID=confess_id)
-    data = many_to_dict()
+    data = many_to_dict( )
+    pass
 
 
 
