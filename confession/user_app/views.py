@@ -1,10 +1,12 @@
 import uuid
+from urllib.parse import urljoin
 
 from django.core.cache import cache
 from django.db.models import Q
 from django.http import HttpResponse
 
-from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED
+from confession.settings import MY_STATIC_FILES_URL
+from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED, GET_ICON_IMAGE_FAIL
 from user_app.logic import get_code, send_msg, render_json, check_vcode, save_upload_file, save_issue_image, \
     many_to_dict
 from user_app.models import User, Confess, Comment
@@ -15,6 +17,24 @@ def hello(request):
     return HttpResponse('hello world jenkins123789')
 
 # ===================# 用户模块================
+def get_icon(request):
+    '''获取用户头像'''
+    phonenum = request.GET.get('phonenum')
+    try:
+        user = User.objects.get(phone=phonenum)
+        data = {
+            "icon":urljoin(MY_STATIC_FILES_URL,'headIcon/' + user.icon),
+            "msg":"success"
+        }
+        return render_json(data, OK)
+    except:
+        data = {
+            "icon":'',
+            "msg":"用户名或密码错误"
+        }
+        return render_json(data, GET_ICON_IMAGE_FAIL)
+
+
 def get_vcode(request):
     '''获取验证码'''
     phonenum = request.GET.get('phonenum')
