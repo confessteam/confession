@@ -16,6 +16,7 @@ from user_app.verify_form import UserForm
 def hello(request):
     return HttpResponse('hello world jenkins123789')
 
+
 # ===================# 用户模块================
 def get_icon(request):
     '''获取用户头像'''
@@ -23,14 +24,14 @@ def get_icon(request):
     try:
         user = User.objects.get(phone=phonenum)
         data = {
-            "icon":urljoin(MY_STATIC_FILES_URL,'headIcon/' + user.icon),
-            "msg":"success"
+            "icon": urljoin(MY_STATIC_FILES_URL, 'headIcon/' + user.icon),
+            "msg": "success"
         }
         return render_json(data, OK)
     except:
         data = {
-            "icon":'',
-            "msg":"用户名或密码错误"
+            "icon": '',
+            "msg": "用户名或密码错误"
         }
         return render_json(data, GET_ICON_IMAGE_FAIL)
 
@@ -54,13 +55,13 @@ def login(request):
         token = uuid.uuid4().hex
         cache.set(token, user.id, timeout=3600)
         data = {
-            'msg':"登录成功",
-            'token':token
+            'msg': "登录成功",
+            'token': token
         }
         return render_json(data, OK)
     else:
         data = {
-            'mesg':'登录失败',
+            'msg': '登录失败',
         }
         return render_json(data, VERIFY_CODE_FAIL)
 
@@ -80,9 +81,9 @@ def update_self_data(request):
     if not form.is_valid():
         return render_json(form.errors, BAD_DATA)
     user = form.save(commit=False)
-    user.id = uid # 保存用户id
-    user.icon= filename # 用户头像文件名
-    user.phone = exist_user.phone # 用户手机号
+    user.id = uid  # 保存用户id
+    user.icon = filename  # 用户头像文件名
+    user.phone = exist_user.phone  # 用户手机号
     user.save()
     return render_json(user.to_dict(), OK)
 
@@ -127,9 +128,9 @@ def delete_self_issue(request):
             confess.save()
             return render_json(confess.to_dict('release_time'), OK)
         else:
-            return render_json({'msg':"没有权限删除该帖子"}, ISSUE_NOT_ALLOWED)
+            return render_json({'msg': "没有权限删除该帖子"}, ISSUE_NOT_ALLOWED)
     else:
-        return render_json({'msg':'该表白帖子不存在'}, ISSUE_NOT_EXIST)
+        return render_json({'msg': '该表白帖子不存在'}, ISSUE_NOT_EXIST)
 
 
 def index(request):
@@ -157,19 +158,5 @@ def get_comments(request):
     '''获取某条帖子的所有评论'''
     confess_id = request.GET.get('confess_id')
     comments = Comment.objects.filter(confessID=confess_id)
-    data = many_to_dict( )
+    data = many_to_dict()
     pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-

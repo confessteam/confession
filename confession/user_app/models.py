@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import time
 from django.db import models
 
 
@@ -19,13 +20,10 @@ class BaseMode(models.Model):
                     attr_dict[name] = getattr(self, name)  # 获取字段对应的值
         return attr_dict
 
-    def datetime_to_string(self, datetime):
-        pass
-
-
 
 class User(BaseMode):
     '''用户表'''
+
     class Meta:
         db_table = 'user'
 
@@ -34,15 +32,26 @@ class User(BaseMode):
         ('女性', '女性'),
         ('保密', '保密'),
     )
-    u_name = models.CharField(max_length=30, default='默认用户')
-    password = models.CharField(max_length=256, default='123456')
-    phone = models.CharField(max_length=11, unique=True, null=False)
-    icon = models.CharField(max_length=256)
-    sex = models.CharField(max_length=4, choices=SEX, default='男性')
-    age = models.IntegerField(default=18)
-    province = models.CharField(max_length=64, default='山西省')
-    city = models.CharField(max_length=64, default='太原市')
-    school = models.CharField(max_length=256, default='山西大学')
+    u_name = models.CharField(max_length=30, default='默认用户', verbose_name="用户昵称")
+    signature = models.CharField(max_length=64, default="我就是我，不一样的烟火", verbose_name="个性签名")
+    password = models.CharField(max_length=256, default='123456', verbose_name="密码")
+    phone = models.CharField(max_length=11, unique=True, null=False, verbose_name="手机号")
+    icon = models.CharField(max_length=256, verbose_name="用户头像")
+    sex = models.CharField(max_length=4, choices=SEX, default='男性', verbose_name="性别")
+    birthday = models.DateField(auto_now=True, verbose_name="出生年月日")
+    province = models.CharField(max_length=64, default='山西省', verbose_name="学校所在省")
+    city = models.CharField(max_length=64, default='太原市', verbose_name="学校所在市")
+    school = models.CharField(max_length=256, default='山西大学', verbose_name="学校名称")
+    create_time = models.TimeField(auto_now_add=True, verbose_name="用户创建时间")
+    action_time = models.TimeField(auto_now=True, verbose_name="修改时间")
+
+    @property
+    def age(self):
+        '''计算年龄'''
+        # 用户出生时间到当前时间一共有多少天
+        days = (datetime.now() - datetime(self.birthday.year, self.birthday.month, self.birthday.day)).days
+        ages = days / 365
+        return ages
 
 
 class Confess(BaseMode):
@@ -56,15 +65,13 @@ class Confess(BaseMode):
     class Meta:
         db_table = 'confess'
 
-    userID = models.IntegerField()
-    context = models.TextField(default='', null=True)
-    image1 = models.CharField(max_length=256, null=True)
-    image2 = models.CharField(max_length=256, null=True)
-    image3 = models.CharField(max_length=256, null=True)
-    userName = models.CharField(max_length=30)
-    state = models.CharField(max_length=50, choices=STATE, default='待审核')
-    release_time = models.DateTimeField(auto_now=True)
-    is_delete = models.BooleanField(default=False)
+    userID = models.IntegerField(default=1, verbose_name="用户id")
+    userName = models.CharField(max_length=30, default='表白墙', verbose_name="用户昵称")
+    context = models.TextField(default='', null=True, verbose_name="发表内容") # 使用%@#分割每张图的说明
+    images = models.TextField(default='', verbose_name="发表配图") # 使用##来分割每张图片
+    state = models.CharField(max_length=50, choices=STATE, default='待审核', verbose_name="审核状态")
+    release_time = models.CharField(max_length=256, default=str(int(time())), verbose_name="发布时间")
+    is_delete = models.BooleanField(default=False, verbose_name="是否被删除")
 
 
 class Comment(BaseMode):
@@ -76,12 +83,3 @@ class Comment(BaseMode):
     context = models.TextField(null=True)
     comment_time = models.DateTimeField(auto_now_add=True)
     is_delete = models.BooleanField(default=False)
-
-
-
-
-
-
-
-
-

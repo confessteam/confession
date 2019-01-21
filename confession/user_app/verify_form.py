@@ -9,10 +9,11 @@ class UserForm(forms.ModelForm):
         fields = [
             'u_name',
             'sex',
-            'age',
             'province',
             'city',
-            'school'
+            'school',
+            'signature',
+
         ]
 
     def clean_age(self):
