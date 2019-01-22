@@ -89,6 +89,13 @@ def many_to_dict(objects):
     return res_lists
 
 
+def get_first_image_list(confess_list):
+    '''获取每组中的第一张图片'''
+    image_list = []
+    for item in confess_list:
+        image_list.append(item.images.split('##')[0])
+    length = len(image_list)
+    return image_list[0:length//2], image_list[length//2:length]
 
 if __name__ == '__main__':
     print(type(get_code(4)))

@@ -4,17 +4,19 @@ from urllib.parse import urljoin
 from django.core.cache import cache
 from django.db.models import Q
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from confession.settings import MY_STATIC_FILES_URL
-from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED, GET_ICON_IMAGE_FAIL
+from user_app.constant import OK, VERIFY_CODE_FAIL, BAD_DATA, ISSUE_NOT_EXIST, ISSUE_NOT_ALLOWED, GET_ICON_IMAGE_FAIL, \
+    NO_DATA
 from user_app.logic import get_code, send_msg, render_json, check_vcode, save_upload_file, save_issue_image, \
-    many_to_dict
+    many_to_dict, get_first_image_list
 from user_app.models import User, Confess, Comment
 from user_app.verify_form import UserForm
 
 
 def hello(request):
-    return HttpResponse('hello world jenkins123789')
+    return render(request,'text.html')
 
 
 # ===================# 用户模块================
@@ -135,10 +137,23 @@ def delete_self_issue(request):
 
 def index(request):
     '''首页信息展示'''
+    # 需要每条表白的 第一张图片、点赞数、评论数
     # 帖子分页
-    confesses = Confess.objects.all()[1:10]
-    data = many_to_dict(confesses)
-    return render_json(data, OK)
+    start = int(request.GET.get('start', '0').strip())
+    step = int(request.GET.get('step', '150').strip())
+    confesses = Confess.objects.all()[start:step]
+    if confesses.exists():
+        image1_list, image2_list = get_first_image_list(confesses)
+        data = {
+            "image1_list":image1_list,
+            "image2_list":image2_list
+        }
+        return render_json(data, OK)
+    else:
+        data = {
+            'msg':'have no data'
+        }
+        return render_json(data, NO_DATA)
 
 
 def do_comment(request):
