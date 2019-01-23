@@ -16,7 +16,7 @@ from user_app.verify_form import UserForm
 
 
 def hello(request):
-    return render(request,'text.html')
+    return render(request, 'text.html')
 
 
 # ===================# 用户模块================
@@ -143,15 +143,18 @@ def index(request):
     step = int(request.GET.get('step', '150').strip())
     confesses = Confess.objects.all()[start:step]
     if confesses.exists():
-        image1_list, image2_list = get_first_image_list(confesses)
+        # image1_list, image2_list = get_first_image_list(confesses)
+        images_list = [i.images for i in (confesses)]
+        res_images = [i.split('##') for i in images_list]
+        length = len(res_images)
         data = {
-            "image1_list":image1_list,
-            "image2_list":image2_list
+            'image1_list': res_images[0:length//2],
+            'image2_list': res_images[length//2:length],
         }
         return render_json(data, OK)
     else:
         data = {
-            'msg':'have no data'
+            'msg': 'have no data'
         }
         return render_json(data, NO_DATA)
 
