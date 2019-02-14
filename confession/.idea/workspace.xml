@@ -133,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/static/dist/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="31" lean-forward="false" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
+              <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -222,6 +222,11 @@
             <path>
               <item name="confession" type="b2602c69:ProjectViewProjectNode" />
               <item name="confession" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="confession" type="b2602c69:ProjectViewProjectNode" />
+              <item name="confession" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -785,7 +790,7 @@
     <entry file="file://$PROJECT_DIR$/static/dist/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="31" lean-forward="false" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
+          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
           <folding />
         </state>
       </provider>

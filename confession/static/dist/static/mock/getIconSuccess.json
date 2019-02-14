@@ -1,0 +1,7 @@
+{
+  "code": 200,
+  "data": {
+    "icon": "http://127.0.0.1:8000/static/headIcon/avatar-1",
+    "msg": "success"
+  }
+}
