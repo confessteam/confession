@@ -26,10 +26,10 @@ from user_app.models import Confess
 
 class GetCofession(object):
     # base_url、headers需要时时跟新
-    base_url = '''https://h5.qzone.qq.com/proxy/domain/ic2.qzone.qq.com/cgi-bin/feeds/feeds_html_act_all?uin=2094531487&hostuin=3185948277&scope=0&filter=all&flag=1&refresh=0&firstGetGroup=0&mixnocache=0&scene=0&begintime=undefined&icServerTime=&start=%d&count=%d&sidomain=qzonestyle.gtimg.cn&useutf8=1&outputhtmlfeed=1&refer=2&r=0.6084415718575285&g_tk=1897417413&qzonetoken=14b8f54823e64251bdfca6835997957ed6dbcc8eab0e3b6db5b008eb120cae6afbe86fa7b23a734100&g_tk=1897417413'''
+    base_url = '''https://h5.qzone.qq.com/proxy/domain/ic2.qzone.qq.com/cgi-bin/feeds/feeds_html_act_all?uin=2094531487&hostuin=3185948277&scope=0&filter=all&flag=1&refresh=0&firstGetGroup=0&mixnocache=0&scene=0&begintime=undefined&icServerTime=&start=%d&count=%d&sidomain=qzonestyle.gtimg.cn&useutf8=1&outputhtmlfeed=1&refer=2&r=0.6598675730229324&g_tk=45245881&qzonetoken=24014f8eded068265a6ae915f4a98c169b4ef38bd14f1319d5c3359f2e41f7027d3537a6185bdf&g_tk=45245881'''
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
-        'cookie': '''pgv_pvi=4587480064; pgv_pvid=7663623423; RK=1jzpLOp5Vg; ptcz=5f4879138b14cbe4baf30d19cfbb9d1d88a8c2a8d7a804355f8be6edbb7f8679; QZ_FE_WEBP_SUPPORT=1; __Q_w_s__QZN_TodoMsgCnt=1; __Q_w_s_hat_seed=1; ptui_loginuin=2094531487; tvfe_boss_uuid=a3b921c5106e6ac5; _qpsvr_localtk=0.7527056164350052; pgv_si=s4241382400; pgv_info=ssid=s9361039825; uin=o2094531487; skey=@qeyYlnp9c; p_uin=o2094531487; ptisp=; pt4_token=tOsFhTFHqlJoenPVJr4sHCmMbre0h*MomP**G*p91QE_; p_skey=RmjkWqlOWOvW*qibUnffDlax1z1Ld3802DLJvTEASk8_; Loading=Yes; cpu_performance_v8=4; rv2=80A25200A864CB1A16D4C9C3FDE2E16F817812D6A0A477E3F9; property20=7057F0FD890AA86579C883474A046C54210A4C41043F701DF1155B840713FCFE6F6473A77A143300'''
+        'cookie': '''pgv_pvid=2942223597; pgv_info=ssid=s314747112; zzpaneluin=; zzpanelkey=; pgv_pvi=1444548608; pgv_si=s9418597376; _qpsvr_localtk=0.8774627654124492; uin=o2094531487; skey=@QNld8s6Ph; RK=OizhKspoXg; ptcz=6d4fbe3e08321772765f3cd7d6d197bf7a9bb16af0079fba658e52b963563d00; p_uin=o2094531487; pt4_token=k291S9LKqocB4-rPT3E8P6x26KfgOHw7W4eWSKiKdAk_; p_skey=ayHByNNovJkmkugUkQMrdItR0L*y5ZTtSMftnV5kcCQ_; rv2=806403F17A023B4802CC56AF092AA6E3A41DC52032B9D83CB7; property20=701501B315228225D5F857000DFDAF59CDD0F85E8A64A2C7CDF3A751BD7AEC6F4892F557CFB32AC0'''
     }
     start = 0
     step = 40
