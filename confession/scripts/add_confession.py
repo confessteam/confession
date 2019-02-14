@@ -33,7 +33,7 @@ class GetCofession(object):
     }
     start = 0
     step = 40
-    HOST = "http://192.168.1.101:8000/static/confessImage/"
+    HOST = "http://www.fand.wang:8890/static/confessImage/"
 
     def get_data(self):
         '''发起请求'''
