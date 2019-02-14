@@ -140,7 +140,7 @@ def index(request):
     # 需要每条表白的 第一张图片、点赞数、评论数
     # 帖子分页
     start = int(request.GET.get('start', '0').strip())
-    step = int(request.GET.get('step', '150').strip())
+    step = int(request.GET.get('step', '10').strip())
     confesses = Confess.objects.all()[start:step]
     if confesses.exists():
         # image1_list, image2_list = get_first_image_list(confesses)
@@ -154,7 +154,8 @@ def index(request):
         return render_json(data, OK)
     else:
         data = {
-            'msg': 'have no data'
+            'image1_list':[],
+            'image2_list':[]
         }
         return render_json(data, NO_DATA)
 

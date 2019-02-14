@@ -72,7 +72,7 @@ class Confess(BaseMode):
     state = models.CharField(max_length=50, choices=STATE, default='待审核', verbose_name="审核状态")
     release_time = models.CharField(max_length=256, default=str(int(time())), verbose_name="发布时间")
     is_delete = models.BooleanField(default=False, verbose_name="是否被删除")
-
+    contentType = models.IntegerField(default=1,verbose_name="内容类型（1:表白、2：失物招领、3：二手商品、4：其他）")
 
 class Comment(BaseMode):
     class Meta:

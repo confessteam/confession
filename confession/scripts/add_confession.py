@@ -26,14 +26,14 @@ from user_app.models import Confess
 
 class GetCofession(object):
     # base_url、headers需要时时跟新
-    base_url = '''https://h5.qzone.qq.com/proxy/domain/ic2.qzone.qq.com/cgi-bin/feeds/feeds_html_act_all?uin=2094531487&hostuin=3185948277&scope=0&filter=all&flag=1&refresh=0&firstGetGroup=0&mixnocache=0&scene=0&begintime=undefined&icServerTime=&start=%d&count=%d&sidomain=qzonestyle.gtimg.cn&useutf8=1&outputhtmlfeed=1&refer=2&r=0.30395835685806194&g_tk=1870055345&qzonetoken=efc969d8108581ae4090c53fac8b0e2a84ef5d53454cc7d28ff2c82bb4b49756077149bd1c3bd008&g_tk=1870055345'''
+    base_url = '''https://h5.qzone.qq.com/proxy/domain/ic2.qzone.qq.com/cgi-bin/feeds/feeds_html_act_all?uin=2094531487&hostuin=3185948277&scope=0&filter=all&flag=1&refresh=0&firstGetGroup=0&mixnocache=0&scene=0&begintime=undefined&icServerTime=&start=%d&count=%d&sidomain=qzonestyle.gtimg.cn&useutf8=1&outputhtmlfeed=1&refer=2&r=0.6084415718575285&g_tk=1897417413&qzonetoken=14b8f54823e64251bdfca6835997957ed6dbcc8eab0e3b6db5b008eb120cae6afbe86fa7b23a734100&g_tk=1897417413'''
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
-        'cookie': '''pgv_pvi=4587480064; pgv_pvid=7663623423; RK=1jzpLOp5Vg; ptcz=5f4879138b14cbe4baf30d19cfbb9d1d88a8c2a8d7a804355f8be6edbb7f8679; QZ_FE_WEBP_SUPPORT=1; __Q_w_s__QZN_TodoMsgCnt=1; __Q_w_s_hat_seed=1; cpu_performance_v8=29; ptui_loginuin=2094531487; zzpaneluin=; zzpanelkey=; pgv_si=s3100382208; _qpsvr_localtk=0.5995397468616939; ptisp=cnc; pgv_info=ssid=s5819140980; uin=o2094531487; skey=@cKdXNTEZY; p_uin=o2094531487; pt4_token=o8-COf9q2lUXJpDfWX09U1Carir9aexkj*OcycOlGis_; p_skey=mJ2BPajhMZIlXqntMqinTsRsPrYhX9sMrCDx*qSPR1Q_; rv2=8097A8A323E7F480A9D53FEF27E501F5D1606CE4309CC6CE8C; property20=7492741A9DBF5AFBA53C84026A95CA67C969C1A485D441FFDF7F64FE39179290BC78A2E1F886CE65'''
+        'cookie': '''pgv_pvi=4587480064; pgv_pvid=7663623423; RK=1jzpLOp5Vg; ptcz=5f4879138b14cbe4baf30d19cfbb9d1d88a8c2a8d7a804355f8be6edbb7f8679; QZ_FE_WEBP_SUPPORT=1; __Q_w_s__QZN_TodoMsgCnt=1; __Q_w_s_hat_seed=1; ptui_loginuin=2094531487; tvfe_boss_uuid=a3b921c5106e6ac5; _qpsvr_localtk=0.7527056164350052; pgv_si=s4241382400; pgv_info=ssid=s9361039825; uin=o2094531487; skey=@qeyYlnp9c; p_uin=o2094531487; ptisp=; pt4_token=tOsFhTFHqlJoenPVJr4sHCmMbre0h*MomP**G*p91QE_; p_skey=RmjkWqlOWOvW*qibUnffDlax1z1Ld3802DLJvTEASk8_; Loading=Yes; cpu_performance_v8=4; rv2=80A25200A864CB1A16D4C9C3FDE2E16F817812D6A0A477E3F9; property20=7057F0FD890AA86579C883474A046C54210A4C41043F701DF1155B840713FCFE6F6473A77A143300'''
     }
     start = 0
     step = 40
-    HOST = "http://192.168.0.107:8000/static/confessImage/"
+    HOST = "http://192.168.1.101:8000/static/confessImage/"
 
     def get_data(self):
         '''发起请求'''
