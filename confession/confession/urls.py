@@ -21,5 +21,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^proxy/user/', include('user_app.urls', namespace='user')),
+    url(r'^api/proxy/user/', include('user_app.urls', namespace='user')),
 ]
