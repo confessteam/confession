@@ -67,12 +67,16 @@ class Confess(BaseMode):
 
     userID = models.IntegerField(default=1, verbose_name="用户id")
     userName = models.CharField(max_length=30, default='表白墙', verbose_name="用户昵称")
-    context = models.TextField(default='', null=True, verbose_name="发表内容") # 使用%@#分割每张图的说明
-    images = models.TextField(default='', verbose_name="发表配图") # 使用##来分割每张图片
+    context = models.TextField(default='', null=True, verbose_name="发表内容")  # 使用%@#分割每张图的说明
+    images = models.TextField(default='', verbose_name="发表配图")  # 使用##来分割每张图片
     state = models.CharField(max_length=50, choices=STATE, default='待审核', verbose_name="审核状态")
     release_time = models.CharField(max_length=256, default=str(int(time())), verbose_name="发布时间")
     is_delete = models.BooleanField(default=False, verbose_name="是否被删除")
-    contentType = models.IntegerField(default=1,verbose_name="内容类型（1:表白、2：失物招领、3：二手商品、4：其他）")
+    contentType = models.IntegerField(default=1, verbose_name="内容类型（1:表白、2：失物招领、3：二手商品、4：其他）")
+    likeCount = models.IntegerField(default=0)
+    collectCount = models.IntegerField(default=0)
+    commentCount = models.IntegerField(default=0)
+
 
 class Comment(BaseMode):
     class Meta:
@@ -83,3 +87,33 @@ class Comment(BaseMode):
     context = models.TextField(null=True)
     comment_time = models.DateTimeField(auto_now_add=True)
     is_delete = models.BooleanField(default=False)
+
+
+class Collection(BaseMode):
+    class Meta:
+        db_table = 'collection'
+
+    userID = models.IntegerField()
+    confessID = models.IntegerField()
+    is_delete = models.BooleanField(default=False)
+
+
+class Care(BaseMode):
+    class Meta:
+        db_table = 'care'
+
+    userID = models.IntegerField()
+    caredUserId = models.IntegerField()
+    is_delete = models.BooleanField(default=False)
+
+
+class Notice(BaseMode):
+    class Meta:
+        db_table = "notice"
+
+    userId = models.IntegerField()
+    messageType = models.CharField(max_length=10, default="系统") # 系统、用户
+    messageState = models.CharField(max_length=10, default="未读") # 已读、未读
+    message = models.TextField(null=True)
+
+
