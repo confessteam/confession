@@ -43,9 +43,9 @@ def get_icon(request):
 def get_vcode(request):
     '''获取验证码'''
     phonenum = request.GET.get('phonenum')
-    vcode = '123123'
-    # vcode = get_code(4)
-    # res = send_msg(phonenum, vcode)
+    # vcode = '123123'
+    vcode = get_code(4)
+    res = send_msg(phonenum, vcode)
     cache.set('Vcode-%s' % phonenum, vcode, timeout=3600)
     print(cache.get('Vcode-%s' % phonenum))
     return render_json(None, OK)
@@ -57,6 +57,8 @@ def login(request):
     vcode = request.POST.get('vcode')
     if check_vcode(phonenum, vcode):
         user, _ = User.objects.get_or_create(phone=phonenum)
+        user.u_name = phonenum
+        user.save()
         token = uuid.uuid4().hex
         cache.set(token, user.id)
         data = {
@@ -223,7 +225,7 @@ def index(request):
     # 帖子分页
     start = int(request.GET.get('start', '0').strip())
     step = int(request.GET.get('step', '10').strip())
-    confesses = Confess.objects.all().order_by('-id')[start:step]
+    confesses = Confess.objects.filter(contentType=1).order_by('-id')[start:step]
     if confesses.exists():
         confesses = list(confesses)
         data = {
@@ -297,10 +299,10 @@ def get_care_confessions(request):
         caredUserIdList.append(user.caredUserId)
     confesses = Confess.objects.filter(userID__in=caredUserIdList).order_by('-id')
     if confesses.exists():
-        length = len(confesses)
+        confesses = list(confesses)
         data = {
-            'confesses1': many_to_dict(confesses[0:length // 2]),
-            'confesses2': many_to_dict(confesses[length // 2:length]),
+            'confesses1': many_to_dict(confesses[0:-1:2]),
+            'confesses2': many_to_dict(confesses[1:-1:2]),
         }
         return render_json(data, OK)
     else:

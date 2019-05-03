@@ -25,6 +25,7 @@ class User(BaseMode):
     '''用户表'''
 
     class Meta:
+        verbose_name_plural = '用户'
         db_table = 'user'
 
     SEX = (
@@ -61,25 +62,34 @@ class Confess(BaseMode):
         ('通过', '通过'),
         ('未通过', '未通过')
     )
+    TYPE = (
+        (1, '表白'),
+        (2, '失物招领'),
+        (3, '二手商品'),
+        (4, '其他'),
+    )
 
     class Meta:
+        verbose_name_plural = '内容'
         db_table = 'confess'
 
-    userID = models.IntegerField(default=1, verbose_name="用户id")
+    userID = models.IntegerField(default=1, verbose_name="用户ID")
     userName = models.CharField(max_length=30, default='表白墙', verbose_name="用户昵称")
     context = models.TextField(default='', null=True, verbose_name="发表内容")  # 使用%@#分割每张图的说明
     images = models.TextField(default='', verbose_name="发表配图")  # 使用##来分割每张图片
     state = models.CharField(max_length=50, choices=STATE, default='待审核', verbose_name="审核状态")
     release_time = models.CharField(max_length=256, default=str(int(time())), verbose_name="发布时间")
+    # contentType = models.IntegerField(default=1, verbose_name="内容类型（1:表白、2：失物招领、3：二手商品、4：其他）")
+    contentType = models.IntegerField(default=1, verbose_name="内容类型", choices=TYPE)
+    likeCount = models.IntegerField(default=0, verbose_name='关注数')
+    collectCount = models.IntegerField(default=0, verbose_name='收藏数')
+    commentCount = models.IntegerField(default=0, verbose_name='评论数')
     is_delete = models.BooleanField(default=False, verbose_name="是否被删除")
-    contentType = models.IntegerField(default=1, verbose_name="内容类型（1:表白、2：失物招领、3：二手商品、4：其他）")
-    likeCount = models.IntegerField(default=0)
-    collectCount = models.IntegerField(default=0)
-    commentCount = models.IntegerField(default=0)
 
 
 class Comment(BaseMode):
     class Meta:
+        verbose_name_plural = '评论'
         db_table = 'comment'
 
     userID = models.IntegerField()
@@ -91,6 +101,7 @@ class Comment(BaseMode):
 
 class Collection(BaseMode):
     class Meta:
+        verbose_name_plural = '收藏'
         db_table = 'collection'
 
     userID = models.IntegerField()
@@ -100,6 +111,7 @@ class Collection(BaseMode):
 
 class Care(BaseMode):
     class Meta:
+        verbose_name_plural = '关注'
         db_table = 'care'
 
     userID = models.IntegerField()
@@ -109,6 +121,7 @@ class Care(BaseMode):
 
 class Notice(BaseMode):
     class Meta:
+        verbose_name_plural = '消息'
         db_table = "notice"
 
     userId = models.IntegerField()
