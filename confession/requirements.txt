@@ -7,7 +7,7 @@ Django==1.11.15
 django-redis==4.10.0
 django-redis-cache==1.8.1
 idna==2.8
-ipython==7.2.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.13.2
 lxml==4.3.0
